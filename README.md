@@ -1,5 +1,7 @@
 # rick-and-morty
 
+[Open in browser](https://rick-and-morty-liard-theta.vercel.app/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
