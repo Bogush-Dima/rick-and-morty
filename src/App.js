@@ -1,8 +1,11 @@
-import './App.css';
+import styles from 'App.module.css';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const store = useSelector(store => store)
+  console.log(store);
   return (
-    <div className="App">
+    <div className={styles.wrapper}>
     sdfsdfdsf
     </div>
   );
