@@ -1,0 +1,96 @@
+span {
+  margin-right: 5px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  margin-right: 5px;
+  transition: .2s;
+}
+
+a:hover {
+  color: rgb(255, 152, 0);
+}
+
+.person {
+  width: 500px;
+  min-height: 180px;
+  display: flex;
+  overflow: hidden;
+  background: rgb(60, 62, 68);
+  border-radius: 0.5rem;
+  margin: 0.75rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.imgLink {
+  width: 40%;
+}
+
+.img {
+  width: 100%;
+}
+
+.info {
+  padding: 0.75rem;
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.name {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.status {
+}
+
+.exist {
+  position: relative;
+  padding-left: 15px;
+}
+
+.exist::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8px;
+  width: 8px;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
+.alive::before {
+  background: greenyellow;
+}
+
+.dead::before {
+  background: red;
+}
+
+.unknow::before {
+  background: gray;
+}
+
+.race {
+}
+
+.gender {
+}
+
+.locationTitle {
+  font-size: 13px;
+  color: gray;
+}
+
+.lastLocation {
+}
+
+.FirstSeen {
+}

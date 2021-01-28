@@ -1,12 +1,12 @@
-import styles from 'App.module.css';
-import { useSelector } from 'react-redux';
+import styles from "App.module.css";
+import { Characters } from "components/Characters";
+import { Header } from "components/Header";
 
 function App() {
-  const store = useSelector(store => store)
-  console.log(store);
   return (
     <div className={styles.wrapper}>
-    sdfsdfdsf
+      <Header />
+      <Characters />
     </div>
   );
 }

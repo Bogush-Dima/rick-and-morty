@@ -1,0 +1,101 @@
+header {
+  background: white;
+  padding: 30px 10px;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  font-size: 20px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  border: 2px solid rgb(255, 152, 0);
+  background: transparent;
+  color: rgb(51, 51, 51);
+  transition: .1s;
+}
+
+button:hover {
+  cursor: pointer;
+  background: rgb(255, 152, 0);
+  color: white;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: black;
+  font-weight: 700;
+  font-size: 45px;
+  letter-spacing: 15px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+  color: black;
+}
+
+.nameInput {
+  font-size: 20px;
+  width: 200px;
+  border: 2px solid rgb(255, 152, 0);
+  border-radius: 5px;
+  outline: none;
+  padding: 5px 10px;
+}
+
+.nameInput::placeholder {
+  color: rgba(255, 153, 0, 0.596);
+}
+
+.existLabel {
+  display: block;
+}
+
+.radio {
+  display: none;
+}
+
+.fake {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border: 2px solid rgb(255, 152, 0);
+  border-radius: 20px;
+  position: relative;
+}
+
+.fake::before {
+  content: "";
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 152, 0);
+  opacity: 0;
+  border-radius: 20px;
+}
+
+.fake:hover {
+  cursor: pointer;
+}
+
+.radio:checked + .fake::before {
+  opacity: 1;
+}
+
+.filterName {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterCategoryTitle {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 10px;
+}

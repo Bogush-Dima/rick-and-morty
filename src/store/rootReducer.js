@@ -1,5 +1,6 @@
-const initialState = []
+import { combineReducers } from "redux"
+import { charactersReducer } from "./reducers/charactersReducer"
 
-export const rootReducer = (state = initialState, action) => {
-  return state
-}
+export const rootReducer = combineReducers({
+  characters: charactersReducer
+})
