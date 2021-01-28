@@ -1,6 +1,7 @@
-import styles from "App.module.css";
+import styles from "style.module.css";
 import { Characters } from "components/Characters";
 import { Header } from "components/Header";
+import { CharacterInfo } from "components/CharacterInfo";
 
 function App() {
   return (

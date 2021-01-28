@@ -14,9 +14,17 @@ header {
 
 .form {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   padding: 20px 0;
   color: black;
+}
+
+.filtersWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 50px;
 }
 
 .nameInput {

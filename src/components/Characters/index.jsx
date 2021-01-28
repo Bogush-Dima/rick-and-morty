@@ -1,4 +1,4 @@
-import styles from "components/Characters/Characters.module.css";
+import styles from "components/Characters/style.module.css";
 import { useSelector } from "react-redux";
 import { Person } from "./Person";
 
