@@ -1,6 +1,6 @@
-import styles from "components/Header/style.module.css";
+import styles from "components/Filter/style.module.css";
 
-export const Header = () => {
+export const Filter = () => {
   return (
     <header>
       <h2 className={styles.title}>FILTERS</h2>

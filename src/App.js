@@ -1,12 +1,12 @@
 import styles from "style.module.css";
 import { Characters } from "components/Characters";
-import { Header } from "components/Header";
+import { Filter } from "components/Filter";
 import { CharacterInfo } from "components/CharacterInfo";
 
 function App() {
   return (
     <div className={styles.wrapper}>
-      <Header />
+      <Filter />
       <Characters />
     </div>
   );

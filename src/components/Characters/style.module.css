@@ -2,6 +2,16 @@
   padding: 50px 0;
 }
 
+.loader {
+  display: none;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.showLoader {
+  display: block;
+}
+
 .characters {
   display: flex;
   align-items: center;
@@ -22,4 +32,16 @@
   color: rgb(255, 152, 0);
   padding-top: 7px;
   font-size: 25px;
+}
+
+.disabled {
+  color: rgb(60, 62, 68);
+  border-color: rgb(60, 62, 68);
+}
+
+.disabled:hover {
+  cursor: auto;
+  color: rgb(60, 62, 68);
+  border-color: rgb(60, 62, 68);
+  background: transparent;
 }

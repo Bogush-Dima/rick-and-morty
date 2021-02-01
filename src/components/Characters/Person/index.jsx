@@ -3,7 +3,7 @@ import styles from "components/Characters/Person/style.module.css";
 import { useDispatch } from "react-redux";
 import {
   clickExistInPerson,
-  clickRaceInPerson,
+  clickSpeciesInPerson,
   clickGenderInPerson,
 } from "store/actions";
 
@@ -16,9 +16,9 @@ export const Person = ({
     event.preventDefault();
     dispatch(clickExistInPerson(status));
   };
-  const clickRace = (event) => {
+  const clickSpecies = (event) => {
     event.preventDefault();
-    dispatch(clickRaceInPerson(species));
+    dispatch(clickSpeciesInPerson(species));
   };
   const clickGender = (event) => {
     event.preventDefault();
@@ -27,9 +27,7 @@ export const Person = ({
 
   return (
     <div className={styles.person}>
-      <a className={styles.imgLink} href="personCard">
-        <img className={styles.img} src={image} alt="img" />
-      </a>
+      <img className={styles.img} src={image} alt="img" />
       <div className={styles.info}>
         <a className={styles.name} href="personCard">
           {name}
@@ -47,9 +45,9 @@ export const Person = ({
             {status}
           </span>
           <span
-            className={clsx(styles.status, styles.race)}
+            className={clsx(styles.status, styles.species)}
             href="filteredByThis"
-            onClick={(event) => clickRace(event)}
+            onClick={(event) => clickSpecies(event)}
           >
             {species}
           </span>
