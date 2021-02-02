@@ -1,3 +1,4 @@
+import axios from "axios";
 const {
   GET_PERSONS_START,
   GET_PERSONS_SUCCESSFUL,
@@ -5,8 +6,7 @@ const {
   CLICK_EXIST_IN_PERSON,
   CLICK_SPECIES_IN_PERSON,
   CLICK_GENDER_IN_PERSON,
-  CLICK_NEXT_CHARACTERS_LIST,
-  CLICK_PREV_CHARACTERS_LIST,
+  GET_PERSON_INFO,
 } = require("./consts");
 
 const getPersonsStart = () => {
@@ -29,16 +29,41 @@ const getPersonsError = (message) => {
   };
 };
 
-export const getPersons = () => {
+export const getPersons = (
+  { name = "", exist = "", gender = "" } = {},
+  path
+) => {
   return async (dispatch) => {
-    dispatch(getPersonsStart());
     try {
-      const data = await fetch("https://rickandmortyapi.com/api/character");
-      const res = await data.json();
-      dispatch(getPersonsSuccessful(res));
+      dispatch(getPersonsStart());
+      const res = await axios(
+        path ||
+          `https://rickandmortyapi.com/api/character/?name=${name}&status=${exist}&gender=${gender}`
+      );
+      dispatch(getPersonsSuccessful(res.data));
     } catch (err) {
-      dispatch(getPersonsError(err));
-      console.log(err);
+      dispatch(getPersonsError(err.message));
+      throw new Error(err.message);
+    }
+  };
+};
+
+const getPersonInfoSuccessful = (data) => {
+  return {
+    type: GET_PERSON_INFO,
+    payload: data,
+  };
+};
+
+export const getPersonInfo = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios(
+        `https://rickandmortyapi.com/api/character/${id}`
+      );
+      dispatch(getPersonInfoSuccessful(res.data));
+    } catch (err) {
+      throw new Error(err.message);
     }
   };
 };
@@ -61,35 +86,5 @@ export const clickGenderInPerson = (gender) => {
   return {
     type: CLICK_GENDER_IN_PERSON,
     payload: gender,
-  };
-};
-
-const getNextCharactersList = (res) => {
-  return {
-    type: CLICK_NEXT_CHARACTERS_LIST,
-    payload: res,
-  };
-};
-
-const getPrevCharactersList = (res) => {
-  return {
-    type: CLICK_PREV_CHARACTERS_LIST,
-    payload: res,
-  };
-};
-
-export const clickPrevOrNextCharactersList = (prevOrNext) => {
-  return async (dispatch, getState) => {
-    dispatch(getPersonsStart());
-    try {
-      const path = getState().characters.info[prevOrNext];
-      const data = await fetch(`${path}`);
-      const res = await data.json();
-      prevOrNext === "prev"
-        ? dispatch(getPrevCharactersList(res))
-        : dispatch(getNextCharactersList(res));
-    } catch (err) {
-      dispatch(getPersonsError(err));
-    }
   };
 };

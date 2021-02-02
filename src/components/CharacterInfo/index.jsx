@@ -1,36 +1,35 @@
-import styles from "components/CharacterInfo/style.module.css";
+// import styles from "components/CharacterInfo/style.module.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { getPersonInfo } from "store/actions";
 
 export const CharacterInfo = () => {
+  const id = useParams().idOfPerson;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPersonInfo(id));
+  }, []);
+
+  const personInfo = useSelector((store) => store.personInfo);
+
   return (
     <section>
       <div>
-        <img src="https://rickandmortyapi.com/api/episode/1" alt="img" />
-        <p>Name</p>
+        <img src={personInfo.image} alt="img" />
+        <p>{personInfo.name}</p>
       </div>
       <div>
         <p>
-          <span>Exist:</span>Alive
+          <span>Exist:</span>{personInfo.status}
         </p>
         <p>
-          <span>Gender:</span>Male
+          <span>Gender:</span>{personInfo.gender}
         </p>
         <p>
-          <span>Rase:</span>Human
-        </p>
-        <p>
-          <span>Last known location:</span>Minsk
-        </p>
-        <p>
-          <span>First seen in:</span>Gorodeya
-        </p>
-        <p>
-          <span>Episodes:</span>
-          <ul>
-            <li>
-              <img src="url" alt="img" />
-              <p>Episode's name</p>
-            </li>
-          </ul>
+          <span>Rase:</span>{personInfo.species}
         </p>
       </div>
     </section>

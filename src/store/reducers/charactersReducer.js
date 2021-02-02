@@ -1,8 +1,6 @@
 import {
   CLICK_EXIST_IN_PERSON,
   CLICK_GENDER_IN_PERSON,
-  CLICK_NEXT_CHARACTERS_LIST,
-  CLICK_PREV_CHARACTERS_LIST,
   CLICK_SPECIES_IN_PERSON,
   GET_PERSONS_ERROR,
   GET_PERSONS_START,
@@ -11,7 +9,7 @@ import {
 
 const initialState = {
   items: [],
-  info: {},
+  info: {prev: null, next: null},
   isLoading: false,
   error: null,
 };
@@ -50,20 +48,6 @@ export const charactersReducer = (state = initialState, action) => {
       return {
         ...state,
         items: state.items.filter((item) => item.gender === action.payload),
-      };
-      case CLICK_NEXT_CHARACTERS_LIST:
-      return {
-        ...state,
-        info: action.payload.info,
-        items: action.payload.results,
-        isLoading: false
-      };
-      case CLICK_PREV_CHARACTERS_LIST:
-      return {
-        ...state,
-        info: action.payload.info,
-        items: action.payload.results,
-        isLoading: false
       };
     default:
       return state;

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import styles from "components/Characters/Person/style.module.css";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   clickExistInPerson,
   clickSpeciesInPerson,
@@ -8,7 +9,7 @@ import {
 } from "store/actions";
 
 export const Person = ({
-  person: { image, name, status, species, gender, location, origin },
+  person: { id, image, name, status, species, gender, location, origin },
 }) => {
   const dispatch = useDispatch();
 
@@ -27,11 +28,13 @@ export const Person = ({
 
   return (
     <div className={styles.person}>
-      <img className={styles.img} src={image} alt="img" />
+      <Link to={`${id}`}>
+        <img className={styles.img} src={image} alt="img" />
+      </Link>
       <div className={styles.info}>
-        <a className={styles.name} href="personCard">
+        <Link className={styles.name} to={`${id}`}>
           {name}
-        </a>
+        </Link>
         <p>
           <span
             className={clsx(styles.status, styles.exist, {
