@@ -7,7 +7,7 @@ span {
   display: flex;
   align-items: center;
   max-width: max-content;
-  margin: 100px auto 0;
+  margin: 100px auto;
 }
 
 .img {

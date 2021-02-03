@@ -9,7 +9,7 @@ export const Filter = () => {
   const dispatch = useDispatch();
 
   const [filteredValues, setFilteredValues] = useState({});
-  const [showFiltersForMobile, setshowFiltersForMobile] = useState(false);
+  const [showFilters, setshowFilters] = useState(false);
 
   const changeName = (event) => {
     const name = event.target.value;
@@ -46,19 +46,18 @@ export const Filter = () => {
     <header>
       <div className={styles.btnsWrapper}>
         <Link to="/">
-          <button onClick={() => setshowFiltersForMobile(false)}>Home</button>
+          <button onClick={() => setshowFilters(false)}>Home</button>
         </Link>
         <button
           className={styles.filtersBtn}
-          onClick={() => setshowFiltersForMobile(!showFiltersForMobile)}
+          onClick={() => setshowFilters(!showFilters)}
         >
           Filters
         </button>
       </div>
-      <h2 className={styles.title}>FILTERS</h2>
       <form
         className={clsx(styles.form, {
-          [styles.showFilters]: showFiltersForMobile,
+          [styles.showFilters]: showFilters,
         })}
       >
         <div className={styles.filtersWrapper}>

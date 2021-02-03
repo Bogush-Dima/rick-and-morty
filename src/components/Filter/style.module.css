@@ -1,26 +1,36 @@
 header {
   background: white;
+  padding: 0;
+  min-height: 105px;
+}
+
+.btnsWrapper {
   padding: 30px 10px;
+  background: white;
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filtersBtn {
-  display: none;
-}
-
-.title {
-  text-align: center;
-  margin-bottom: 30px;
-  color: black;
-  font-weight: 700;
-  font-size: 45px;
+  display: block;
+  margin: 0;
+  margin-left: 30px;
 }
 
 .form {
-  display: flex;
+  margin-top: -250px;
   flex-direction: column;
   justify-content: space-around;
   padding: 20px 0;
   color: black;
+  transition: .3s;
+}
+
+.showFilters {
+  margin-top: 0;
 }
 
 .filtersWrapper {
@@ -93,44 +103,18 @@ header {
 }
 
 @media (max-width: 600px) {
-  header {
-    padding: 0;
-    min-height: 105px;
+  .form {
+    margin-top: -200%;
   }
 
-  .btnsWrapper {
-    padding: 30px 10px;
-    background: white;
-    position: relative;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .filtersBtn {
-    display: block;
-    margin: 0;
-    margin-left: 30px;
+  .showFilters {
+    margin-top: 0;
   }
 
   .filtersWrapper {
     display: block;
     width: max-content;
     margin: 0 auto 50px;
-  }
-
-  .title {
-    display: none;
-  }
-
-  .form {
-    margin-top: -200%;
-    transition: .3s;
-  }
-
-  .showFilters {
-    margin-top: 0;
   }
 
   .filterCategoryTitle {
