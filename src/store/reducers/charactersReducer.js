@@ -32,7 +32,7 @@ export const charactersReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        isLoading: false,
+        [state.isLoading]: false,
       };
     case CLICK_EXIST_IN_PERSON:
       return {

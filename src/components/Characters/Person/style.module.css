@@ -81,19 +81,20 @@ a:hover,
   background: gray;
 }
 
-.species {
-}
-
-.gender {
-}
-
 .locationTitle {
   font-size: 13px;
   color: gray;
 }
 
-.lastLocation {
-}
 
-.FirstSeen {
+@media(max-width: 600px) {
+  .person {
+    width: 270px;
+    display: block;
+  }
+
+  .img {
+    width: 100%;
+    margin: 0 auto;
+  }
 }

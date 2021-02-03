@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "components/Filter/style.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -8,6 +9,7 @@ export const Filter = () => {
   const dispatch = useDispatch();
 
   const [filteredValues, setFilteredValues] = useState({});
+  const [showFiltersForMobile, setshowFiltersForMobile] = useState(false);
 
   const changeName = (event) => {
     const name = event.target.value;
@@ -42,11 +44,23 @@ export const Filter = () => {
 
   return (
     <header>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+      <div className={styles.btnsWrapper}>
+        <Link to="/">
+          <button onClick={() => setshowFiltersForMobile(false)}>Home</button>
+        </Link>
+        <button
+          className={styles.filtersBtn}
+          onClick={() => setshowFiltersForMobile(!showFiltersForMobile)}
+        >
+          Filters
+        </button>
+      </div>
       <h2 className={styles.title}>FILTERS</h2>
-      <form className={styles.form}>
+      <form
+        className={clsx(styles.form, {
+          [styles.showFilters]: showFiltersForMobile,
+        })}
+      >
         <div className={styles.filtersWrapper}>
           <div className={styles.filterName}>
             <label
