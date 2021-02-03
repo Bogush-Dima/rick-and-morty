@@ -11,7 +11,7 @@ export const CharacterInfo = () => {
 
   useEffect(() => {
     dispatch(getPersonInfo(id));
-  }, []);
+  }, [dispatch, id]);
 
   const personInfo = useSelector((store) => store.personInfo);
 

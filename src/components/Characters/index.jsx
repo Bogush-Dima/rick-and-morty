@@ -10,7 +10,7 @@ export const Characters = () => {
 
   useEffect(() => {
     dispatch(getPersons());
-  }, []);
+  }, [dispatch]);
 
   const prev = useSelector((state) => state.characters.info.prev);
   const next = useSelector((state) => state.characters.info.next);
