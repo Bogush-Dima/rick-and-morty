@@ -1,0 +1,41 @@
+.labelabel {
+  display: block;
+}
+
+.radio {
+  display: none;
+}
+
+.fake {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border: 2px solid rgb(255, 152, 0);
+  border-radius: 20px;
+  position: relative;
+}
+
+.fake::before {
+  content: "";
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 152, 0);
+  opacity: 0;
+  border-radius: 20px;
+}
+
+.fake:hover {
+  cursor: pointer;
+}
+
+.radio:checked + .fake::before {
+  opacity: 1;
+}
+
+.pointName {
+  text-transform: capitalize;
+}

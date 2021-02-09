@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.input {
+  font-size: 20px;
+  width: 140px;
+  border: 2px solid rgb(255, 152, 0);
+  border-radius: 5px;
+  outline: none;
+  padding: 5px 10px;
+}
+
+.input::placeholder {
+  color: rgba(255, 153, 0, 0.596);
+}
+
+@media (max-width: 600px) {
+  .title {
+    margin-top: 30px;
+  }
+}

@@ -5,7 +5,7 @@ import {
   GET_PERSONS_ERROR,
   GET_PERSONS_START,
   GET_PERSONS_SUCCESSFUL,
-} from "store/consts";
+} from "store/constants";
 
 const initialState = {
   items: [],
@@ -32,7 +32,7 @@ export const charactersReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        [state.isLoading]: false,
+        isLoading: false,
       };
     case CLICK_EXIST_IN_PERSON:
       return {

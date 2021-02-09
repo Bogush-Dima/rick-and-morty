@@ -3,36 +3,59 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getPersonInfo } from "store/actions";
+import { Episodes } from "./Episodes";
 
 export const CharacterInfo = () => {
-  const id = useParams().idOfPerson;
-
+  const { idOfPerson } = useParams();
   const dispatch = useDispatch();
+  const { personInfo } = useSelector((store) => store);
+  const { episodesNames = [] } = personInfo;
 
   useEffect(() => {
-    dispatch(getPersonInfo(id));
-  }, [dispatch, id]);
+    dispatch(getPersonInfo(idOfPerson));
+  }, [dispatch, idOfPerson]);
 
-  const personInfo = useSelector((store) => store.personInfo);
+  const {
+    image,
+    name,
+    status,
+    gender,
+    species,
+    location = { name: "" },
+  } = personInfo;
 
   return (
     <section>
       <div className={styles.wrapper}>
-        <img className={styles.img} src={personInfo.image} alt="img" />
-        <div className={styles.text}>
-          <p className={styles.name}>{personInfo.name}</p>
-          <p>
-            <span>Exist:</span>
-            {personInfo.status}
-          </p>
-          <p>
-            <span>Gender:</span>
-            {personInfo.gender}
-          </p>
-          <p>
-            <span>Rase:</span>
-            {personInfo.species}
-          </p>
+        <div className={styles.head}>
+          <img className={styles.img} src={image} alt="img" />
+          <div className={styles.text}>
+            <p className={styles.name}>{name}</p>
+            <p>
+              <span>Exist:</span>
+              {status}
+            </p>
+            <p>
+              <span>Gender:</span>
+              {gender}
+            </p>
+            <p>
+              <span>Species:</span>
+              {species}
+            </p>
+            <p>
+              <span>location:</span>
+              {location.name}
+            </p>
+          </div>
+        </div>
+        <div className={styles.episodes}>
+          <span className={styles.episodesTitle}>Episodes:</span>
+          <div className={styles.episodesNames}>
+            {episodesNames.map((el) => {
+              return <Episodes episode={el} key={el} />;
+            })}
+          </div>
         </div>
       </div>
     </section>

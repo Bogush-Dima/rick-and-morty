@@ -1,11 +1,9 @@
 header {
   background: white;
-  padding: 0;
-  min-height: 105px;
 }
 
 .btnsWrapper {
-  padding: 30px 10px;
+  padding: 15px 10px;
   background: white;
   position: relative;
   z-index: 5;
@@ -17,89 +15,49 @@ header {
 .filtersBtn {
   display: block;
   margin: 0;
-  margin-left: 30px;
 }
 
 .form {
-  margin-top: -250px;
+  margin-top: -320px;
   flex-direction: column;
   justify-content: space-around;
   padding: 20px 0;
   color: black;
-  transition: .3s;
+  transition: 0.3s;
+  max-width: 100%;
 }
 
 .showFilters {
   margin-top: 0;
 }
 
+.categoryTitle {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .filtersWrapper {
   display: flex;
-  align-items: center;
   justify-content: space-around;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
-.nameInput {
-  font-size: 20px;
-  width: 200px;
-  border: 2px solid rgb(255, 152, 0);
-  border-radius: 5px;
-  outline: none;
-  padding: 5px 10px;
-}
-
-.nameInput::placeholder {
-  color: rgba(255, 153, 0, 0.596);
-}
-
-.existLabel {
-  display: block;
-}
-
-.radio {
-  display: none;
-}
-
-.fake {
-  display: inline-block;
-  height: 10px;
-  width: 10px;
-  border: 2px solid rgb(255, 152, 0);
-  border-radius: 20px;
-  position: relative;
-}
-
-.fake::before {
-  content: "";
-  position: absolute;
-  height: 70%;
-  width: 70%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgb(255, 152, 0);
-  opacity: 0;
-  border-radius: 20px;
-}
-
-.fake:hover {
-  cursor: pointer;
-}
-
-.radio:checked + .fake::before {
-  opacity: 1;
-}
-
-.filterName {
+.radiosWrapper {
   display: flex;
   flex-direction: column;
 }
 
-.filterCategoryTitle {
-  font-weight: 500;
-  font-size: 20px;
-  margin-bottom: 10px;
+.resetBtn {
+  margin-top: 20px;
+  background: #af0000a1;
+  border-color: #af0000a1;
+}
+
+.resetBtn:hover {
+  background: #af0000de;
+  border-color: #af0000de;
+  color: white;
 }
 
 @media (max-width: 600px) {
@@ -117,7 +75,7 @@ header {
     margin: 0 auto 50px;
   }
 
-  .filterCategoryTitle {
+  .categoryTitle {
     margin-top: 30px;
   }
 }

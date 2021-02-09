@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from "components/Characters/Person/style.module.css";
+import styles from "components/Characters/Character/style.module.css";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -8,10 +8,11 @@ import {
   clickGenderInPerson,
 } from "store/actions";
 
-export const Person = ({
-  person: { id, image, name, status, species, gender, location, origin },
+export const Character = ({
+  character: { id, image, name, status, species, gender, location, origin },
 }) => {
   const dispatch = useDispatch();
+
 
   const clickExist = (event) => {
     event.preventDefault();

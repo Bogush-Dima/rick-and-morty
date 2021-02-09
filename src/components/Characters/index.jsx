@@ -1,52 +1,69 @@
 import clsx from "clsx";
 import styles from "components/Characters/style.module.css";
-import { useEffect } from "react";
+import { Filter } from "components/Filter";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { getPersons } from "store/actions";
-import { Person } from "./Person";
+import { Character } from "./Character";
+const queryString = require("query-string");
 
 export const Characters = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const stateCharactersItems = useSelector((state) => state.characters.items);
 
   useEffect(() => {
-    dispatch(getPersons());
-  }, [dispatch]);
+    let parsedFilters;
+    if (history.location.search) {
+      parsedFilters = queryString.parse(history.location.search);
+    }
+    if (stateCharactersItems.length === 0 || parsedFilters) {
+      dispatch(getPersons(parsedFilters))
+    } 
+  }, [dispatch, history.location.search, stateCharactersItems.length]);
 
-  const prev = useSelector((state) => state.characters.info.prev);
-  const next = useSelector((state) => state.characters.info.next);
-  const isLoading = useSelector((state) => state.characters.isLoading);
-  const error = useSelector((state) => state.characters.error);
-  const persons = useSelector((store) => store.characters.items);
+  const { next, prev } = useSelector(({ characters: { info } }) => info);
+  const { isLoading, error, items } = useSelector(
+    ({ characters }) => characters
+  );
 
   return (
-    <section className={styles.section}>
-      <div className={clsx(styles.loader, { [styles.showLoader]: isLoading })}>
-        LOADING..............
-      </div>
-      <div
-        className={clsx(styles.characters, {
-          [styles.charactersHidden]: isLoading,
-        })}
-      >
-        {error ||
-          persons.map((person) => <Person person={person} key={person.id} />)}
-      </div>
-      <div className={styles.btns}>
-        <button
-          className={clsx(styles.charactersBtn, { [styles.disabled]: !prev })}
-          onClick={() => dispatch(getPersons({}, prev))}
-          disabled={!prev}
+    <>
+      <Filter />
+      <section className={styles.section} id="characters">
+        <div
+          className={clsx(styles.loader, { [styles.showLoader]: isLoading })}
         >
-          &lt;
-        </button>
-        <button
-          className={clsx(styles.charactersBtn, { [styles.disabled]: !next })}
-          onClick={() => dispatch(getPersons({}, next))}
-          disabled={!next}
+          LOADING..............
+        </div>
+        <div
+          className={clsx(styles.characters, {
+            [styles.charactersHidden]: isLoading,
+          })}
         >
-          &gt;
-        </button>
-      </div>
-    </section>
+          {error ||
+            items.map((character) => (
+              <Character character={character} key={character.id} />
+            ))}
+        </div>
+        <div className={styles.btns}>
+          <button
+            className={clsx(styles.charactersBtn, { [styles.disabled]: !prev })}
+            onClick={() => dispatch(getPersons({}, prev))}
+            disabled={!prev}
+          >
+            &lt;
+          </button>
+          <button
+            className={clsx(styles.charactersBtn, { [styles.disabled]: !next })}
+            onClick={() => dispatch(getPersons({}, next))}
+            disabled={!next}
+          >
+            &gt;
+          </button>
+        </div>
+      </section>
+    </>
   );
 };

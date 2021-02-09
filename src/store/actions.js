@@ -7,7 +7,8 @@ const {
   CLICK_SPECIES_IN_PERSON,
   CLICK_GENDER_IN_PERSON,
   GET_PERSON_INFO,
-} = require("./consts");
+  GET_EPISODES_NAMES,
+} = require("./constants");
 
 const getPersonsStart = () => {
   return {
@@ -30,7 +31,7 @@ const getPersonsError = (message) => {
 };
 
 export const getPersons = (
-  { name = "", exist = "", gender = "" } = {},
+  { name = "", status = "", gender = "" } = {},
   path
 ) => {
   return async (dispatch) => {
@@ -38,7 +39,7 @@ export const getPersons = (
       dispatch(getPersonsStart());
       const res = await axios(
         path ||
-          `https://rickandmortyapi.com/api/character/?name=${name}&status=${exist}&gender=${gender}`
+          `https://rickandmortyapi.com/api/character/?name=${name}&status=${status}&gender=${gender}`
       );
       dispatch(getPersonsSuccessful(res.data));
     } catch (err) {
@@ -55,13 +56,38 @@ const getPersonInfoSuccessful = (data) => {
   };
 };
 
-export const getPersonInfo = (id) => {
-  return async (dispatch) => {
+const getEpisodesNamesSuccessful = (data) => {
+  return {
+    type: GET_EPISODES_NAMES,
+    payload: data,
+  };
+};
+
+export const getEpisodesNames = () => {
+  return async (dispatch, getState) => {
     try {
-      const res = await axios(
-        `https://rickandmortyapi.com/api/character/${id}`
-      );
-      dispatch(getPersonInfoSuccessful(res.data));
+      const {episode = []} = getState().personInfo
+      episode.forEach(async path => {
+        const res = await axios(path)
+        dispatch(getEpisodesNamesSuccessful(res.data.name));
+      })
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  };
+};
+
+export const getPersonInfo = (idOfPerson) => {
+  return async (dispatch, getState) => {
+    try {
+      const { id } = getState().personInfo;
+      if (id !== +idOfPerson) {
+        const res = await axios(
+          `https://rickandmortyapi.com/api/character/${idOfPerson}`
+        );
+        await dispatch(getPersonInfoSuccessful(res.data));
+        await dispatch(getEpisodesNames())
+      }
     } catch (err) {
       throw new Error(err.message);
     }
