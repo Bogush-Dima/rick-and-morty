@@ -2,17 +2,17 @@ import styles from "components/CharacterInfo/style.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getPersonInfo } from "store/actions";
+import { getCharacterInfo } from "store/actions";
 import { Episodes } from "./Episodes";
 
 export const CharacterInfo = () => {
   const { idOfPerson } = useParams();
   const dispatch = useDispatch();
-  const { personInfo } = useSelector((store) => store);
-  const { episodesNames = [] } = personInfo;
+  const { characterInfo } = useSelector((store) => store);
+  const { episodesNames = [] } = characterInfo;
 
   useEffect(() => {
-    dispatch(getPersonInfo(idOfPerson));
+    dispatch(getCharacterInfo(idOfPerson));
   }, [dispatch, idOfPerson]);
 
   const {
@@ -22,7 +22,7 @@ export const CharacterInfo = () => {
     gender,
     species,
     location = { name: "" },
-  } = personInfo;
+  } = characterInfo;
 
   return (
     <section>

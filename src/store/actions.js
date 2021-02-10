@@ -59,16 +59,17 @@ const getPersonInfoSuccessful = (data) => {
 const getEpisodesNamesSuccessful = (data) => {
   return {
     type: GET_EPISODES_NAMES,
-    payload: data,
+    payload: data
   };
 };
 
 export const getEpisodesNames = () => {
   return async (dispatch, getState) => {
     try {
-      const {episode = []} = getState().personInfo
+      const {episode = []} = getState().characterInfo
       episode.forEach(async path => {
         const res = await axios(path)
+        console.log(res.data.name);
         dispatch(getEpisodesNamesSuccessful(res.data.name));
       })
     } catch (err) {
@@ -77,15 +78,15 @@ export const getEpisodesNames = () => {
   };
 };
 
-export const getPersonInfo = (idOfPerson) => {
+export const getCharacterInfo = (idOfPerson) => {
   return async (dispatch, getState) => {
     try {
-      const { id } = getState().personInfo;
+      const { id } = getState().characterInfo;
       if (id !== +idOfPerson) {
-        const res = await axios(
+        const characterInfo = await axios(
           `https://rickandmortyapi.com/api/character/${idOfPerson}`
         );
-        await dispatch(getPersonInfoSuccessful(res.data));
+        await dispatch(getPersonInfoSuccessful(characterInfo.data));
         await dispatch(getEpisodesNames())
       }
     } catch (err) {

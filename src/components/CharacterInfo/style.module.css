@@ -47,17 +47,37 @@ span {
   justify-content: center;
 }
 
-@media (max-width: 600px) {
-  .wrapper {
+@media(max-width: 830px) {
+  .head {
     display: block;
   }
 
   .img {
-    margin-right: 0;
-    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
   }
 
   .name {
     text-align: center;
+  }
+
+  .episode {
+    flex-basis: 60%;
+  }
+}
+
+@media (max-width: 500px) {
+  .name {
+    font-size: 50px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+
+  .episodesTitle {
+    font-size: 35px;
+    margin: 0 auto 20px;
   }
 }
