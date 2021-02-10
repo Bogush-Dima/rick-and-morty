@@ -9,7 +9,7 @@ export const CharacterInfo = () => {
   const { idOfPerson } = useParams();
   const dispatch = useDispatch();
   const { characterInfo } = useSelector((store) => store);
-  const { episodesNames = [] } = characterInfo;
+  const { episodesInfo = [] } = characterInfo.info;
 
   useEffect(() => {
     dispatch(getCharacterInfo(idOfPerson));
@@ -22,7 +22,7 @@ export const CharacterInfo = () => {
     gender,
     species,
     location = { name: "" },
-  } = characterInfo;
+  } = characterInfo.info;
 
   return (
     <section>
@@ -52,8 +52,8 @@ export const CharacterInfo = () => {
         <div className={styles.episodes}>
           <span className={styles.episodesTitle}>Episodes:</span>
           <div className={styles.episodesNames}>
-            {episodesNames.map((el) => {
-              return <Episodes episode={el} key={el} />;
+            {episodesInfo.map((el) => {
+              return <Episodes episode={el} key={el.air_date} />;
             })}
           </div>
         </div>

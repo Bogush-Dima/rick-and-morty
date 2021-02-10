@@ -7,7 +7,7 @@ const {
   CLICK_SPECIES_IN_PERSON,
   CLICK_GENDER_IN_PERSON,
   GET_PERSON_INFO,
-  GET_EPISODES_NAMES,
+  GET_EPISODES_INFO,
 } = require("./constants");
 
 const getPersonsStart = () => {
@@ -56,22 +56,29 @@ const getPersonInfoSuccessful = (data) => {
   };
 };
 
-const getEpisodesNamesSuccessful = (data) => {
+const getEpisodesInfoSuccessful = (data) => {
   return {
-    type: GET_EPISODES_NAMES,
-    payload: data
+    type: GET_EPISODES_INFO,
+    payload: data,
   };
 };
 
-export const getEpisodesNames = () => {
+export const getEpisodesInfo = () => {
   return async (dispatch, getState) => {
     try {
-      const {episode = []} = getState().characterInfo
-      episode.forEach(async path => {
-        const res = await axios(path)
-        console.log(res.data.name);
-        dispatch(getEpisodesNamesSuccessful(res.data.name));
-      })
+      const { episode = [] } = getState().characterInfo.info;
+      const episodesInfoArr = []
+      episode.forEach(async (path, ind, arr) => {
+        try {
+          const res = await axios(path)
+          episodesInfoArr.push(res.data)
+          if (arr.length - 1 === ind) {
+            dispatch(getEpisodesInfoSuccessful(episodesInfoArr))
+          }
+        } catch (err) {
+          throw new Error(err.message)
+        }
+      });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -81,15 +88,17 @@ export const getEpisodesNames = () => {
 export const getCharacterInfo = (idOfPerson) => {
   return async (dispatch, getState) => {
     try {
+      dispatch(getPersonsStart());
       const { id } = getState().characterInfo;
       if (id !== +idOfPerson) {
         const characterInfo = await axios(
           `https://rickandmortyapi.com/api/character/${idOfPerson}`
         );
         await dispatch(getPersonInfoSuccessful(characterInfo.data));
-        await dispatch(getEpisodesNames())
+        dispatch(getEpisodesInfo());
       }
     } catch (err) {
+      dispatch(getPersonsError(err));
       throw new Error(err.message);
     }
   };
