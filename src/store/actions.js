@@ -1,65 +1,50 @@
 import axios from "axios";
 const {
-  GET_PERSONS_START,
-  GET_PERSONS_SUCCESSFUL,
-  GET_PERSONS_ERROR,
-  CLICK_EXIST_IN_PERSON,
-  CLICK_SPECIES_IN_PERSON,
-  CLICK_GENDER_IN_PERSON,
-  GET_PERSON_INFO,
-  GET_EPISODES_INFO,
+  GET_CHARACTERS_START,
+  GET_CHARACTERS_SUCCESSFUL,
+  GET_CHARACTERS_ERROR,
+  GET_CHARACTER_INFO_START,
+  GET_CHARACTER_INFO_SUCCESSFUL,
+  GET_CHARACTER_INFO_ERROR,
+  CLICK_EXIST_IN_CHARACTER,
+  CLICK_SPECIES_IN_CHARACTER,
+  CLICK_GENDER_IN_CHARACTER,
+  GET_EPISODES_INFO_SUCCESSFUL,
+  GET_EPISODES_INFO_ERROR,
 } = require("./constants");
 
-const getPersonsStart = () => {
-  return {
-    type: GET_PERSONS_START,
-  };
-};
+const queryStart = (type) => ({ type });
 
-const getPersonsSuccessful = (data) => {
+const querySuccessful = (type, data) => {
   return {
-    type: GET_PERSONS_SUCCESSFUL,
+    type,
     payload: data,
   };
 };
 
-const getPersonsError = (message) => {
+const queryError = (type, message) => {
   return {
-    type: GET_PERSONS_ERROR,
+    type,
     payload: message,
   };
 };
 
-export const getPersons = (
+export const getCharacters = (
   { name = "", status = "", gender = "" } = {},
   path
 ) => {
   return async (dispatch) => {
     try {
-      dispatch(getPersonsStart());
+      dispatch(queryStart(GET_CHARACTERS_START));
       const res = await axios(
         path ||
           `https://rickandmortyapi.com/api/character/?name=${name}&status=${status}&gender=${gender}`
       );
-      dispatch(getPersonsSuccessful(res.data));
+      dispatch(querySuccessful(GET_CHARACTERS_SUCCESSFUL, res.data));
     } catch (err) {
-      dispatch(getPersonsError(err.message));
+      dispatch(queryError(GET_CHARACTERS_ERROR, err.message));
       throw new Error(err.message);
     }
-  };
-};
-
-const getPersonInfoSuccessful = (data) => {
-  return {
-    type: GET_PERSON_INFO,
-    payload: data,
-  };
-};
-
-const getEpisodesInfoSuccessful = (data) => {
-  return {
-    type: GET_EPISODES_INFO,
-    payload: data,
   };
 };
 
@@ -67,19 +52,20 @@ export const getEpisodesInfo = () => {
   return async (dispatch, getState) => {
     try {
       const { episode = [] } = getState().characterInfo.info;
-      const episodesInfoArr = []
+      const episodesInfoArr = [];
       episode.forEach(async (path, ind, arr) => {
         try {
-          const res = await axios(path)
-          episodesInfoArr.push(res.data)
+          const res = await axios(path);
+          episodesInfoArr.push(res.data);
           if (arr.length - 1 === ind) {
-            dispatch(getEpisodesInfoSuccessful(episodesInfoArr))
+            dispatch(querySuccessful(GET_EPISODES_INFO_SUCCESSFUL, episodesInfoArr));
           }
         } catch (err) {
-          throw new Error(err.message)
+          throw new Error(err.message);
         }
       });
     } catch (err) {
+      dispatch(queryError(GET_EPISODES_INFO_ERROR, err))
       throw new Error(err.message);
     }
   };
@@ -88,17 +74,17 @@ export const getEpisodesInfo = () => {
 export const getCharacterInfo = (idOfPerson) => {
   return async (dispatch, getState) => {
     try {
-      dispatch(getPersonsStart());
+      dispatch(queryStart(GET_CHARACTER_INFO_START));
       const { id } = getState().characterInfo;
       if (id !== +idOfPerson) {
         const characterInfo = await axios(
           `https://rickandmortyapi.com/api/character/${idOfPerson}`
         );
-        await dispatch(getPersonInfoSuccessful(characterInfo.data));
+        await dispatch(querySuccessful(GET_CHARACTER_INFO_SUCCESSFUL, characterInfo.data));
         dispatch(getEpisodesInfo());
       }
     } catch (err) {
-      dispatch(getPersonsError(err));
+      dispatch(queryError(GET_CHARACTER_INFO_ERROR, err));
       throw new Error(err.message);
     }
   };
@@ -106,21 +92,21 @@ export const getCharacterInfo = (idOfPerson) => {
 
 export const clickExistInPerson = (exist) => {
   return {
-    type: CLICK_EXIST_IN_PERSON,
+    type: CLICK_EXIST_IN_CHARACTER,
     payload: exist,
   };
 };
 
 export const clickSpeciesInPerson = (species) => {
   return {
-    type: CLICK_SPECIES_IN_PERSON,
+    type: CLICK_SPECIES_IN_CHARACTER,
     payload: species,
   };
 };
 
 export const clickGenderInPerson = (gender) => {
   return {
-    type: CLICK_GENDER_IN_PERSON,
+    type: CLICK_GENDER_IN_CHARACTER,
     payload: gender,
   };
 };

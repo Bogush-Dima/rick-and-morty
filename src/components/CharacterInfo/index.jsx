@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "components/CharacterInfo/style.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,7 @@ export const CharacterInfo = () => {
   const { idOfPerson } = useParams();
   const dispatch = useDispatch();
   const { characterInfo } = useSelector((store) => store);
-  const { episodesInfo = [] } = characterInfo.info;
+  const { isLoading } = characterInfo;
 
   useEffect(() => {
     dispatch(getCharacterInfo(idOfPerson));
@@ -22,11 +23,17 @@ export const CharacterInfo = () => {
     gender,
     species,
     location = { name: "" },
+    episodesInfo = [],
   } = characterInfo.info;
 
   return (
     <section>
-      <div className={styles.wrapper}>
+      <div className={clsx(styles.loader, { [styles.showLoader]: isLoading })}>
+        LOADING..............
+      </div>
+      <div
+        className={clsx(styles.wrapper, { [styles.contentHidden]: isLoading })}
+      >
         <div className={styles.head}>
           <img className={styles.img} src={image} alt="img" />
           <div className={styles.text}>

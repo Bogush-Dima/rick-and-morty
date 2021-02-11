@@ -4,7 +4,7 @@ import { Filter } from "components/Filter";
 import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { getPersons } from "store/actions";
+import { getCharacters } from "store/actions";
 import { Character } from "./Character";
 const queryString = require("query-string");
 
@@ -19,7 +19,7 @@ export const Characters = () => {
       parsedFilters = queryString.parse(history.location.search);
     }
     if (stateCharactersItems.length === 0 || parsedFilters) {
-      dispatch(getPersons(parsedFilters))
+      dispatch(getCharacters(parsedFilters))
     } 
   }, [dispatch, history.location.search, stateCharactersItems.length]);
 
@@ -50,14 +50,14 @@ export const Characters = () => {
         <div className={styles.btns}>
           <button
             className={clsx(styles.charactersBtn, { [styles.disabled]: !prev })}
-            onClick={() => dispatch(getPersons({}, prev))}
+            onClick={() => dispatch(getCharacters({}, prev))}
             disabled={!prev}
           >
             &lt;
           </button>
           <button
             className={clsx(styles.charactersBtn, { [styles.disabled]: !next })}
-            onClick={() => dispatch(getPersons({}, next))}
+            onClick={() => dispatch(getCharacters({}, next))}
             disabled={!next}
           >
             &gt;
