@@ -2,6 +2,7 @@ import clsx from "clsx";
 import styles from "components/Filter/style.module.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { characterPath } from "store/paths";
 import { EnterNameField } from "./EnterNameField";
 import { RadioFilterItem } from "./RadioFilterItem";
 const queryString = require("query-string");
@@ -26,10 +27,10 @@ export const Filter = () => {
 
   const filtrationCharacters = (event) => {
       event.preventDefault();
-      const stringifiedFilters = queryString.stringify(selectedFilters);
+      const stringifiedFilters = `?${queryString.stringify(selectedFilters)}`;
       history.push({
-        pathname: "/characters",
-        search: `?${stringifiedFilters}`,
+        pathname: characterPath,
+        search: stringifiedFilters,
       });
   };
 

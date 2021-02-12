@@ -1,4 +1,6 @@
 import axios from "axios";
+import { characterPath, defaultPath } from "./paths";
+const queryString = require("query-string");
 const {
   GET_CHARACTERS_START,
   GET_CHARACTERS_SUCCESSFUL,
@@ -6,9 +8,6 @@ const {
   GET_CHARACTER_INFO_START,
   GET_CHARACTER_INFO_SUCCESSFUL,
   GET_CHARACTER_INFO_ERROR,
-  CLICK_EXIST_IN_CHARACTER,
-  CLICK_SPECIES_IN_CHARACTER,
-  CLICK_GENDER_IN_CHARACTER,
   GET_EPISODES_INFO_SUCCESSFUL,
   GET_EPISODES_INFO_ERROR,
 } = require("./constants");
@@ -29,16 +28,17 @@ const queryError = (type, message) => {
   };
 };
 
-export const getCharacters = (
-  { name = "", status = "", gender = "" } = {},
-  path
-) => {
+export const getCharacters = (queryPoints = {}, nextOrPrev) => {
   return async (dispatch) => {
     try {
       dispatch(queryStart(GET_CHARACTERS_START));
+      if (nextOrPrev) {
+        const page = queryString.parse(nextOrPrev.split('?')[1])
+        queryPoints = {...queryPoints, ...page}
+      }
+      const queryValues = queryString.stringify(queryPoints);
       const res = await axios(
-        path ||
-          `https://rickandmortyapi.com/api/character/?name=${name}&status=${status}&gender=${gender}`
+        nextOrPrev || `${defaultPath}${characterPath}/?${queryValues}`
       );
       dispatch(querySuccessful(GET_CHARACTERS_SUCCESSFUL, res.data));
     } catch (err) {
@@ -58,55 +58,37 @@ export const getEpisodesInfo = () => {
           const res = await axios(path);
           episodesInfoArr.push(res.data);
           if (arr.length - 1 === ind) {
-            dispatch(querySuccessful(GET_EPISODES_INFO_SUCCESSFUL, episodesInfoArr));
+            dispatch(
+              querySuccessful(GET_EPISODES_INFO_SUCCESSFUL, episodesInfoArr)
+            );
           }
         } catch (err) {
           throw new Error(err.message);
         }
       });
     } catch (err) {
-      dispatch(queryError(GET_EPISODES_INFO_ERROR, err))
+      dispatch(queryError(GET_EPISODES_INFO_ERROR, err));
       throw new Error(err.message);
     }
   };
 };
-
 export const getCharacterInfo = (idOfPerson) => {
   return async (dispatch, getState) => {
     try {
-      dispatch(queryStart(GET_CHARACTER_INFO_START));
-      const { id } = getState().characterInfo;
+      const { id } = getState().characterInfo.info;
       if (id !== +idOfPerson) {
+        dispatch(queryStart(GET_CHARACTER_INFO_START));
         const characterInfo = await axios(
-          `https://rickandmortyapi.com/api/character/${idOfPerson}`
+          `${defaultPath}${characterPath}/${idOfPerson}`
         );
-        await dispatch(querySuccessful(GET_CHARACTER_INFO_SUCCESSFUL, characterInfo.data));
+        await dispatch(
+          querySuccessful(GET_CHARACTER_INFO_SUCCESSFUL, characterInfo.data)
+        );
         dispatch(getEpisodesInfo());
       }
     } catch (err) {
       dispatch(queryError(GET_CHARACTER_INFO_ERROR, err));
       throw new Error(err.message);
     }
-  };
-};
-
-export const clickExistInPerson = (exist) => {
-  return {
-    type: CLICK_EXIST_IN_CHARACTER,
-    payload: exist,
-  };
-};
-
-export const clickSpeciesInPerson = (species) => {
-  return {
-    type: CLICK_SPECIES_IN_CHARACTER,
-    payload: species,
-  };
-};
-
-export const clickGenderInPerson = (gender) => {
-  return {
-    type: CLICK_GENDER_IN_CHARACTER,
-    payload: gender,
   };
 };
