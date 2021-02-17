@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "plugin:prettier/recommended, import/errors, import/warnings"
+  ],
+
+  "plugins": ["prettier", "import"],
+
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

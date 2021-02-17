@@ -16,6 +16,11 @@ a:hover,
   color: rgb(255, 152, 0);
 }
 
+.species:hover {
+  color: white;
+  cursor: auto;
+}
+
 .person {
   width: 500px;
   min-height: 180px;
