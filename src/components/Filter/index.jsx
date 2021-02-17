@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import styles from 'components/Filter/style.module.css';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { characterPath } from 'store/paths';
 import { EnterNameField } from './EnterNameField';
@@ -9,8 +9,8 @@ import { RadioFilterItem } from './RadioFilterItem';
 const queryString = require('query-string');
 
 export const Filter = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
+  const {title, value} = useSelector(state => state.filterValuesFromCharacterCard)
   const parsedFilters = queryString.parse(history.location.search);
   const [showFilters, setshowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState(parsedFilters);
@@ -18,6 +18,11 @@ export const Filter = () => {
     statuses: ['alive', 'dead', 'unknown'],
     genders: ['male', 'female', 'genderless', 'unknown'],
   };
+
+  useEffect(() => {
+    setSelectedFilters({...selectedFilters, [title]: value})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, value])
 
   const selectFilterValue = (event) => {
     const { name, value } = event.target;

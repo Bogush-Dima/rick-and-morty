@@ -10,8 +10,7 @@ const {
   GET_CHARACTER_INFO_ERROR,
   GET_EPISODES_INFO_SUCCESSFUL,
   GET_EPISODES_INFO_ERROR,
-  SET_OLD_SERCH_VALUES,
-  RESET_OLD_SERCH_VALUES,
+  CLICK_FILTER_VALUE_IN_CHARACTER_CARD,
 } = require('./constants');
 
 const queryStart = (type) => ({ type });
@@ -95,3 +94,10 @@ export const getCharacterInfo = (idOfPerson) => {
     }
   };
 };
+
+export const clickFilterValueInCharacterCard = (title, value) => {
+  return {
+    type: CLICK_FILTER_VALUE_IN_CHARACTER_CARD,
+    payload: {title, value}
+  }
+}
