@@ -4,7 +4,7 @@ import {
   GET_CHARACTER_INFO_START,
   GET_CHARACTER_INFO_ERROR,
   GET_EPISODES_INFO_ERROR,
-} from "store/constants";
+} from 'store/constants';
 
 const initialState = {
   info: { episodesInfo: [] },

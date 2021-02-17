@@ -1,6 +1,6 @@
-import styles from "components/CharacterInfo/Episodes/style.module.css";
+import styles from 'components/CharacterInfo/Episodes/style.module.css';
 
-export const Episodes = ({episode: {name, air_date}}) => {
+export const Episodes = ({ episode: { name, air_date } }) => {
   return (
     <div className={styles.episode}>
       <p className={styles.name}>{name}</p>

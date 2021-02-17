@@ -1,13 +1,13 @@
-import clsx from "clsx";
-import styles from "components/Characters/style.module.css";
-import { Filter } from "components/Filter";
-import { useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { getCharacters } from "store/actions";
-import { ArrowBtn } from "./ArrowBtn";
-import { Character } from "./Character";
-const queryString = require("query-string");
+import clsx from 'clsx';
+import styles from 'components/Characters/style.module.css';
+import { Filter } from 'components/Filter';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { getCharacters } from 'store/actions';
+import { ArrowBtn } from './ArrowBtn';
+import { Character } from './Character';
+const queryString = require('query-string');
 
 export const Characters = () => {
   const dispatch = useDispatch();
@@ -20,8 +20,8 @@ export const Characters = () => {
       parsedFilters = queryString.parse(history.location.search);
     }
     if (stateCharactersItems.length === 0 || parsedFilters) {
-      dispatch(getCharacters(parsedFilters))
-    } 
+      dispatch(getCharacters(parsedFilters));
+    }
   }, [dispatch, history.location.search, stateCharactersItems.length]);
 
   const { isLoading, error, items } = useSelector(
@@ -48,8 +48,8 @@ export const Characters = () => {
             ))}
         </div>
         <div className={styles.btns}>
-          <ArrowBtn direction='prev' />
-          <ArrowBtn direction='next' />
+          <ArrowBtn direction="prev" />
+          <ArrowBtn direction="next" />
         </div>
       </section>
     </>

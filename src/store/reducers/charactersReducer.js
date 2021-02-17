@@ -2,11 +2,11 @@ import {
   GET_CHARACTERS_ERROR,
   GET_CHARACTERS_START,
   GET_CHARACTERS_SUCCESSFUL,
-} from "store/constants";
+} from 'store/constants';
 
 const initialState = {
   items: [],
-  info: {prev: null, next: null},
+  info: { prev: null, next: null },
   isLoading: false,
   error: null,
 };

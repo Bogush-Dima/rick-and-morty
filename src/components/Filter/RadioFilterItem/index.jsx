@@ -1,12 +1,17 @@
-import styles from "components/Filter/RadioFilterItem/style.module.css";
+import styles from 'components/Filter/RadioFilterItem/style.module.css';
 
-export const RadioFilterItem = ({ name, value, selectFilterValue, selectedFilters }) => {
+export const RadioFilterItem = ({
+  name,
+  value,
+  selectFilterValue,
+  selectedFilters,
+}) => {
   const isChecked = () => {
     if (value === selectedFilters[name]) {
-      return true
+      return true;
     }
-    return false
-  }
+    return false;
+  };
 
   return (
     <label className={styles.label}>

@@ -1,6 +1,6 @@
-import axios from "axios";
-import { characterPath, defaultPath } from "./paths";
-const queryString = require("query-string");
+import axios from 'axios';
+import { characterPath, defaultPath } from './paths';
+const queryString = require('query-string');
 const {
   GET_CHARACTERS_START,
   GET_CHARACTERS_SUCCESSFUL,
@@ -10,7 +10,9 @@ const {
   GET_CHARACTER_INFO_ERROR,
   GET_EPISODES_INFO_SUCCESSFUL,
   GET_EPISODES_INFO_ERROR,
-} = require("./constants");
+  SET_OLD_SERCH_VALUES,
+  RESET_OLD_SERCH_VALUES,
+} = require('./constants');
 
 const queryStart = (type) => ({ type });
 
@@ -33,8 +35,8 @@ export const getCharacters = (queryPoints = {}, nextOrPrev) => {
     try {
       dispatch(queryStart(GET_CHARACTERS_START));
       if (nextOrPrev) {
-        const page = queryString.parse(nextOrPrev.split('?')[1])
-        queryPoints = {...queryPoints, ...page}
+        const page = queryString.parse(nextOrPrev.split('?')[1]);
+        queryPoints = { ...queryPoints, ...page };
       }
       const queryValues = queryString.stringify(queryPoints);
       const res = await axios(
@@ -72,6 +74,7 @@ export const getEpisodesInfo = () => {
     }
   };
 };
+
 export const getCharacterInfo = (idOfPerson) => {
   return async (dispatch, getState) => {
     try {

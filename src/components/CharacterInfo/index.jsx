@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import styles from "components/CharacterInfo/style.module.css";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { getCharacterInfo } from "store/actions";
-import { Episodes } from "./Episodes";
+import clsx from 'clsx';
+import styles from 'components/CharacterInfo/style.module.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { getCharacterInfo } from 'store/actions';
+import { Episodes } from './Episodes';
 
 export const CharacterInfo = () => {
   const { idOfPerson } = useParams();
@@ -22,7 +22,7 @@ export const CharacterInfo = () => {
     status,
     gender,
     species,
-    location = { name: "" },
+    location = { name: '' },
     episodesInfo = [],
   } = characterInfo.info;
 

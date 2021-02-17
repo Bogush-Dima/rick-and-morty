@@ -1,37 +1,39 @@
-import clsx from "clsx";
-import styles from "components/Filter/style.module.css";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { characterPath } from "store/paths";
-import { EnterNameField } from "./EnterNameField";
-import { RadioFilterItem } from "./RadioFilterItem";
-const queryString = require("query-string");
+import clsx from 'clsx';
+import styles from 'components/Filter/style.module.css';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { characterPath } from 'store/paths';
+import { EnterNameField } from './EnterNameField';
+import { RadioFilterItem } from './RadioFilterItem';
+const queryString = require('query-string');
 
 export const Filter = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const parsedFilters = queryString.parse(history.location.search);
   const [showFilters, setshowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState(parsedFilters);
   const categoriesRadioFilters = {
-    statuses: ["alive", "dead", "unknown"],
-    genders: ["male", "female", "genderless", "unknown"],
+    statuses: ['alive', 'dead', 'unknown'],
+    genders: ['male', 'female', 'genderless', 'unknown'],
   };
 
   const selectFilterValue = (event) => {
     const { name, value } = event.target;
     setSelectedFilters({
       ...selectedFilters,
-      [name || "name"]: value,
+      [name || 'name']: value,
     });
   };
 
   const filtrationCharacters = (event) => {
-      event.preventDefault();
-      const stringifiedFilters = `?${queryString.stringify(selectedFilters)}`;
-      history.push({
-        pathname: characterPath,
-        search: stringifiedFilters,
-      });
+    event.preventDefault();
+    const stringifiedFilters = `?${queryString.stringify(selectedFilters)}`;
+    history.push({
+      pathname: characterPath,
+      search: stringifiedFilters,
+    });
   };
 
   const resetFilters = (event) => {
@@ -56,7 +58,7 @@ export const Filter = () => {
       >
         <div className={styles.filtersWrapper}>
           <EnterNameField
-            name={selectedFilters.name || ""}
+            name={selectedFilters.name || ''}
             selectFilterValue={selectFilterValue}
           />
 

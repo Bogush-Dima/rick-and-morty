@@ -1,4 +1,4 @@
-import styles from "components/Filter/EnterNameField/style.module.css";
+import styles from 'components/Filter/EnterNameField/style.module.css';
 
 export const EnterNameField = ({ name, selectFilterValue }) => {
   return (
