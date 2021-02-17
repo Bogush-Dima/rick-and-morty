@@ -11,6 +11,7 @@ const {
   GET_EPISODES_INFO_SUCCESSFUL,
   GET_EPISODES_INFO_ERROR,
   CLICK_FILTER_VALUE_IN_CHARACTER_CARD,
+  SET_OLD_FILTERS,
 } = require('./constants');
 
 const queryStart = (type) => ({ type });
@@ -99,5 +100,12 @@ export const clickFilterValueInCharacterCard = (title, value) => {
   return {
     type: CLICK_FILTER_VALUE_IN_CHARACTER_CARD,
     payload: {title, value}
+  }
+}
+
+export const setOldFilters = (data) => {
+  return {
+    type: SET_OLD_FILTERS,
+    payload: data
   }
 }

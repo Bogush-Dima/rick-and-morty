@@ -26,7 +26,7 @@ export const CharacterInfo = () => {
     location = { name: "" },
     episodesInfo = [],
   } = characterInfo.info;
-
+  
   return (
     <>
       {isLoading ? <Loader /> : null}

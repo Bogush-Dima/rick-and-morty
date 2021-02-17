@@ -5,7 +5,7 @@ import { Loader } from "components/Loader";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { getCharacters } from "store/actions";
+import { getCharacters, setOldFilters } from "store/actions";
 import { ArrowBtn } from "./ArrowBtn";
 import { Character } from "./Character";
 const queryString = require("query-string");
@@ -14,15 +14,21 @@ export const Characters = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const stateCharactersItems = useSelector((state) => state.characters.items);
+  const { oldFilters } = useSelector((state) => state);
 
   useEffect(() => {
-    let parsedFilters;
-    if (history.location.search) {
-      parsedFilters = queryString.parse(history.location.search);
-    }
-    if (stateCharactersItems.length === 0 || parsedFilters) {
+    let parsedFilters = queryString.parse(history.location.search);
+    
+    dispatch(setOldFilters(parsedFilters));
+
+    let isNewFilters =
+      queryString.stringify(parsedFilters) ===
+      queryString.stringify(oldFilters);
+
+    if (stateCharactersItems.length === 0 || !isNewFilters) {
       dispatch(getCharacters(parsedFilters));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, history.location.search, stateCharactersItems.length]);
 
   const { isLoading, error, items } = useSelector(
