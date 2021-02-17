@@ -1,13 +1,14 @@
-import clsx from 'clsx';
-import styles from 'components/Characters/style.module.css';
-import { Filter } from 'components/Filter';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { getCharacters } from 'store/actions';
-import { ArrowBtn } from './ArrowBtn';
-import { Character } from './Character';
-const queryString = require('query-string');
+import clsx from "clsx";
+import styles from "components/Characters/style.module.css";
+import { Filter } from "components/Filter";
+import { Loader } from "components/Loader";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { getCharacters } from "store/actions";
+import { ArrowBtn } from "./ArrowBtn";
+import { Character } from "./Character";
+const queryString = require("query-string");
 
 export const Characters = () => {
   const dispatch = useDispatch();
@@ -31,17 +32,14 @@ export const Characters = () => {
   return (
     <>
       <Filter />
-      <section className={styles.section} id="characters">
-        <div
-          className={clsx(styles.loader, { [styles.showLoader]: isLoading })}
-        >
-          LOADING..............
-        </div>
-        <div
-          className={clsx(styles.characters, {
-            [styles.charactersHidden]: isLoading,
-          })}
-        >
+      {isLoading ? <Loader /> : null}
+      <section
+        className={clsx(styles.section, {
+          [styles.sectionHidden]: isLoading,
+        })}
+        id="characters"
+      >
+        <div className={styles.characters}>
           {error ||
             items.map((character) => (
               <Character character={character} key={character.id} />

@@ -1,10 +1,11 @@
-import clsx from 'clsx';
-import styles from 'components/CharacterInfo/style.module.css';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { getCharacterInfo } from 'store/actions';
-import { Episodes } from './Episodes';
+import clsx from "clsx";
+import styles from "components/CharacterInfo/style.module.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { getCharacterInfo } from "store/actions";
+import { Loader } from "components/Loader";
+import { Episodes } from "./Episodes";
 
 export const CharacterInfo = () => {
   const { idOfPerson } = useParams();
@@ -22,17 +23,17 @@ export const CharacterInfo = () => {
     status,
     gender,
     species,
-    location = { name: '' },
+    location = { name: "" },
     episodesInfo = [],
   } = characterInfo.info;
 
   return (
-    <section>
-      <div className={clsx(styles.loader, { [styles.showLoader]: isLoading })}>
-        LOADING..............
-      </div>
-      <div
-        className={clsx(styles.wrapper, { [styles.contentHidden]: isLoading })}
+    <>
+      {isLoading ? <Loader /> : null}
+      <section
+        className={clsx(styles.section, {
+          [styles.sectionHidden]: isLoading,
+        })}
       >
         <div className={styles.head}>
           <img className={styles.img} src={image} alt="img" />
@@ -64,7 +65,7 @@ export const CharacterInfo = () => {
             })}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
