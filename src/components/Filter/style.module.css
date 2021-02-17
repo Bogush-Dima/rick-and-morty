@@ -27,7 +27,7 @@ header {
   max-width: 100%;
 }
 
-.showFilters {
+.toggleFilters {
   margin-top: 0;
 }
 
@@ -65,7 +65,7 @@ header {
     margin-top: -200%;
   }
 
-  .showFilters {
+  .toggleFilters {
     margin-top: 0;
   }
 

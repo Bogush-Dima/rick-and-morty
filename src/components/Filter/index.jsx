@@ -12,7 +12,7 @@ export const Filter = () => {
   const history = useHistory();
   const {title, value} = useSelector(state => state.filterValuesFromCharacterCard)
   const parsedFilters = queryString.parse(history.location.search);
-  const [showFilters, setshowFilters] = useState(false);
+  const [toggleFilters, setToggleFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState(parsedFilters);
   const categoriesRadioFilters = {
     statuses: ['alive', 'dead', 'unknown'],
@@ -51,14 +51,14 @@ export const Filter = () => {
       <div className={styles.btnsWrapper}>
         <button
           className={styles.filtersBtn}
-          onClick={() => setshowFilters(!showFilters)}
+          onClick={() => setToggleFilters(!toggleFilters)}
         >
           Filters
         </button>
       </div>
       <form
         className={clsx(styles.form, {
-          [styles.showFilters]: showFilters,
+          [styles.toggleFilters]: toggleFilters,
         })}
       >
         <div className={styles.filtersWrapper}>
