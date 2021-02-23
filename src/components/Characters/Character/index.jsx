@@ -1,5 +1,6 @@
+import React from "react";
 import clsx from "clsx";
-import styles from "components/Characters/Character/style.module.css";
+import styles from "./style.module.css";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { clickFilterValueInCharacterCard } from "store/actions";
@@ -10,9 +11,9 @@ export const Character = ({
   const dispatch = useDispatch();
 
   const clickValue = (event) => {
-    const {title} = event.target;
+    const { title } = event.target;
     const value = event.target.innerText.toLowerCase();
-    dispatch(clickFilterValueInCharacterCard(title, value))
+    dispatch(clickFilterValueInCharacterCard(title, value));
   };
 
   return (
@@ -31,16 +32,16 @@ export const Character = ({
               [styles.dead]: status === "Dead",
               [styles.unknown]: status === "unknown",
             })}
-            title='status'
-            onClick={(event) => clickValue(event)}
+            title="status"
+            onClick={clickValue}
           >
             {status}
           </span>
           <span className={clsx(styles.status, styles.species)}>{species}</span>
           <span
             className={clsx(styles.status, styles.gender)}
-            title='gender'
-            onClick={(event) => clickValue(event)}
+            title="gender"
+            onClick={clickValue}
           >
             {gender}
           </span>

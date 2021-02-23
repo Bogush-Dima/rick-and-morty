@@ -1,4 +1,5 @@
-import styles from 'components/Filter/RadioFilterItem/style.module.css';
+import React from "react";
+import styles from "./style.module.css";
 
 export const RadioFilterItem = ({
   name,
@@ -6,12 +7,7 @@ export const RadioFilterItem = ({
   selectFilterValue,
   selectedFilters,
 }) => {
-  const isChecked = () => {
-    if (value === selectedFilters[name]) {
-      return true;
-    }
-    return false;
-  };
+  const isChecked = () => value === selectedFilters[name];
 
   return (
     <label className={styles.label}>
@@ -21,7 +17,7 @@ export const RadioFilterItem = ({
         checked={isChecked()}
         name={name}
         value={value}
-        onChange={(event) => selectFilterValue(event)}
+        onChange={selectFilterValue}
       />
       <span className={styles.fake}></span>
       <span className={styles.pointName}>{value}</span>

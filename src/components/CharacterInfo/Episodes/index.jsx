@@ -1,4 +1,5 @@
-import styles from 'components/CharacterInfo/Episodes/style.module.css';
+import React from "react";
+import styles from "./style.module.css";
 
 export const Episodes = ({ episode: { name, air_date } }) => {
   return (

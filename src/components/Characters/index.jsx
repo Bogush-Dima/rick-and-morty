@@ -1,5 +1,6 @@
+import React from "react";
 import clsx from "clsx";
-import styles from "components/Characters/style.module.css";
+import styles from "./style.module.css";
 import { Filter } from "components/Filter";
 import { Loader } from "components/Loader";
 import { useEffect } from "react";
@@ -18,7 +19,7 @@ export const Characters = () => {
 
   useEffect(() => {
     let parsedFilters = queryString.parse(history.location.search);
-    
+
     dispatch(setOldFilters(parsedFilters));
 
     let isNewFilters =

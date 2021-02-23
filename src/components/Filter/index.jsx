@@ -1,34 +1,37 @@
-import clsx from 'clsx';
-import styles from 'components/Filter/style.module.css';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { characterPath } from 'store/paths';
-import { EnterNameField } from './EnterNameField';
-import { RadioFilterItem } from './RadioFilterItem';
-const queryString = require('query-string');
+import React from "react";
+import clsx from "clsx";
+import styles from "./style.module.css";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { CharacterPath } from "store/paths";
+import { EnterNameField } from "./EnterNameField";
+import { RadioFilterItem } from "./RadioFilterItem";
+const queryString = require("query-string");
 
 export const Filter = () => {
   const history = useHistory();
-  const {title, value} = useSelector(state => state.filterValuesFromCharacterCard)
+  const { title, value } = useSelector(
+    (state) => state.filterValuesFromCharacterCard
+  );
   const parsedFilters = queryString.parse(history.location.search);
   const [toggleFilters, setToggleFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState(parsedFilters);
   const categoriesRadioFilters = {
-    statuses: ['alive', 'dead', 'unknown'],
-    genders: ['male', 'female', 'genderless', 'unknown'],
+    statuses: ["alive", "dead", "unknown"],
+    genders: ["male", "female", "genderless", "unknown"],
   };
 
   useEffect(() => {
-    setSelectedFilters({...selectedFilters, [title]: value})
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, value])
+    setSelectedFilters({ ...selectedFilters, [title]: value });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, value]);
 
   const selectFilterValue = (event) => {
     const { name, value } = event.target;
     setSelectedFilters({
       ...selectedFilters,
-      [name || 'name']: value,
+      [name || "name"]: value,
     });
   };
 
@@ -36,7 +39,7 @@ export const Filter = () => {
     event.preventDefault();
     const stringifiedFilters = `?${queryString.stringify(selectedFilters)}`;
     history.push({
-      pathname: characterPath,
+      pathname: CharacterPath,
       search: stringifiedFilters,
     });
   };
@@ -63,7 +66,7 @@ export const Filter = () => {
       >
         <div className={styles.filtersWrapper}>
           <EnterNameField
-            name={selectedFilters.name || ''}
+            name={selectedFilters.name || ""}
             selectFilterValue={selectFilterValue}
           />
 
@@ -76,7 +79,7 @@ export const Filter = () => {
                   value={value}
                   selectedFilters={selectedFilters}
                   selectFilterValue={selectFilterValue}
-                  key={Math.random().toString()}
+                  key={value}
                 />
               );
             })}
@@ -91,7 +94,7 @@ export const Filter = () => {
                   value={value}
                   selectedFilters={selectedFilters}
                   selectFilterValue={selectFilterValue}
-                  key={Math.random().toString()}
+                  key={value}
                 />
               );
             })}
@@ -99,10 +102,7 @@ export const Filter = () => {
         </div>
 
         <button onClick={(event) => filtrationCharacters(event)}>Search</button>
-        <button
-          className={styles.resetBtn}
-          onClick={(event) => resetFilters(event)}
-        >
+        <button className={styles.resetBtn} onClick={resetFilters}>
           Reset Filters
         </button>
       </form>

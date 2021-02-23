@@ -7,7 +7,7 @@ import {
 } from 'store/constants';
 
 const initialState = {
-  info: { episodesInfo: [] },
+  info: {episodesInfo: []},
   isLoading: false,
   error: null,
 };
@@ -22,7 +22,7 @@ export const characterInfoReducer = (state = initialState, action) => {
     case GET_CHARACTER_INFO_SUCCESSFUL:
       return {
         ...state,
-        info: { ...state.info, ...action.payload },
+        info: {...state.info, ...action.payload},
       };
     case GET_EPISODES_INFO_SUCCESSFUL:
       return {

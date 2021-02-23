@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   items: [],
-  info: { prev: null, next: null },
+  info: {prev: null, next: null},
   isLoading: false,
   error: null,
 };

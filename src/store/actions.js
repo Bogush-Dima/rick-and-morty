@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { characterPath, defaultPath } from './paths';
-const queryString = require('query-string');
+import axios from "axios";
+import { CharacterPath, DefaultPath } from "./paths";
+const queryString = require("query-string");
 const {
   GET_CHARACTERS_START,
   GET_CHARACTERS_SUCCESSFUL,
@@ -12,7 +12,7 @@ const {
   GET_EPISODES_INFO_ERROR,
   CLICK_FILTER_VALUE_IN_CHARACTER_CARD,
   SET_OLD_FILTERS,
-} = require('./constants');
+} = require("./constants");
 
 const queryStart = (type) => ({ type });
 
@@ -35,12 +35,12 @@ export const getCharacters = (queryPoints = {}, nextOrPrev) => {
     try {
       dispatch(queryStart(GET_CHARACTERS_START));
       if (nextOrPrev) {
-        const page = queryString.parse(nextOrPrev.split('?')[1]);
+        const page = queryString.parse(nextOrPrev.split("?")[1]);
         queryPoints = { ...queryPoints, ...page };
       }
       const queryValues = queryString.stringify(queryPoints);
       const res = await axios(
-        nextOrPrev || `${defaultPath}${characterPath}/?${queryValues}`
+        nextOrPrev || `${DefaultPath}${CharacterPath}/?${queryValues}`
       );
       dispatch(querySuccessful(GET_CHARACTERS_SUCCESSFUL, res.data));
     } catch (err) {
@@ -82,7 +82,7 @@ export const getCharacterInfo = (idOfPerson) => {
       if (id !== +idOfPerson) {
         dispatch(queryStart(GET_CHARACTER_INFO_START));
         const characterInfo = await axios(
-          `${defaultPath}${characterPath}/${idOfPerson}`
+          `${DefaultPath}${CharacterPath}/${idOfPerson}`
         );
         await dispatch(
           querySuccessful(GET_CHARACTER_INFO_SUCCESSFUL, characterInfo.data)
@@ -99,13 +99,13 @@ export const getCharacterInfo = (idOfPerson) => {
 export const clickFilterValueInCharacterCard = (title, value) => {
   return {
     type: CLICK_FILTER_VALUE_IN_CHARACTER_CARD,
-    payload: {title, value}
-  }
-}
+    payload: { title, value },
+  };
+};
 
 export const setOldFilters = (data) => {
   return {
     type: SET_OLD_FILTERS,
-    payload: data
-  }
-}
+    payload: data,
+  };
+};

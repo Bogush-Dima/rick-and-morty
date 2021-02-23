@@ -1,5 +1,6 @@
+import React from "react";
 import clsx from "clsx";
-import styles from "components/CharacterInfo/style.module.css";
+import styles from "./style.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -26,7 +27,7 @@ export const CharacterInfo = () => {
     location = { name: "" },
     episodesInfo = [],
   } = characterInfo.info;
-  
+
   return (
     <>
       {isLoading ? <Loader /> : null}

@@ -1,4 +1,5 @@
-import styles from 'components/Filter/EnterNameField/style.module.css';
+import React from "react";
+import styles from "./style.module.css";
 
 export const EnterNameField = ({ name, selectFilterValue }) => {
   return (
@@ -11,7 +12,7 @@ export const EnterNameField = ({ name, selectFilterValue }) => {
         type="text"
         value={name}
         placeholder="Enter name"
-        onChange={(event) => selectFilterValue(event)}
+        onChange={selectFilterValue}
       />
     </div>
   );
